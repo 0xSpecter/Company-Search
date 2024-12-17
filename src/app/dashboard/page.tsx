@@ -1,5 +1,5 @@
 "use client"
-import { motion } from "motion/react";
+// import { motion } from "motion/react";
 import useSession from "@/hooks/useSession";
 import Sidepanal from "@/components/dashboard/sidepanal";
 import Filters from "@/components/dashboard/filters";
@@ -9,7 +9,7 @@ import { useState } from "react";
 
 
 export default function Home() {
-    const {session, setSession} = useSession(true, "/")
+    useSession(true, "/")
     const [progress, setProgress] = useState("start")
     const [filters, setFilters] = useState({
         industri: "fuck",

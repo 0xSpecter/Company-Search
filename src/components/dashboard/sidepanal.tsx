@@ -1,4 +1,3 @@
-import Image from "next/image"
 import { motion, AnimatePresence } from "motion/react"
 
 function Progress_point({ selected, src = "/vercel.svg" }) {

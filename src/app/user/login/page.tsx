@@ -76,6 +76,7 @@ export default function Page() {
                     Registrer
                 </HollowButton>
             </div>
+            <img src="/viktor.jpg" alt="viktor" className="ml-80 rounded-full transition-all -rotate-45 hover:rotate-180 border-8 border-red-700"/>
         </div>
     );
 }

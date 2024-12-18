@@ -1,5 +1,5 @@
 "use client"
-// import { motion } from "motion/react";
+import { motion } from "motion/react";
 import useSession from "@/hooks/useSession";
 import Sidepanal from "@/components/dashboard/sidepanal";
 import H from "@/components/h";
@@ -40,6 +40,7 @@ export default function Home() {
 
 
     const [table, setTable] = useState(null)
+    const [status, setStatus] = useState(null)
 
     useEffect(() => {
         if (table != null) {
@@ -68,8 +69,8 @@ export default function Home() {
                             <Button onClick={async () => {
                                     setProgress("loading")
                                     const id = await createRequest(filters)
-                                    getRequest(id)
-                                        .then(data => setTable(data))
+                                    getRequest(id, setStatus)
+                                       .then(data => setTable(data))
                                 }}
                             >
                                 <img src="/check.svg" alt="" className="w-6 h-6 mr-3"/> Godkjenn og søk
@@ -81,8 +82,22 @@ export default function Home() {
                     <>
                         <div className="flex flex-col items-center justify-center gap-10">
                             <H>
-                                Laster Inn ...
+                                Laster Inn
                             </H>
+                            
+                            <motion.img src="/loading2.svg" className="w-20 h-20"
+                                animate={{
+                                    rotate: [0, 360],
+                                }}
+                                transition={{
+                                    duration: 2,
+                                    ease: "linear",
+                                    repeat: Infinity
+                                }}
+                            />
+                            <span>
+                                {status}
+                            </span>
                             <Button onClick={() => setProgress("filters")}>
                                 Avslutt søk tidlig
                             </Button>
@@ -93,9 +108,9 @@ export default function Home() {
                     <>
                         <Table table={table} />
                     </>
-                : progress == "element" &&
+                : progress == "info" &&
                     <>
-
+                        
                     </>
                 }
             </div>

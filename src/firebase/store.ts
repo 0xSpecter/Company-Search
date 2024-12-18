@@ -31,17 +31,17 @@ function sleep(time) {
   return new Promise((resolve) => setTimeout(resolve, time));
 }
 
-export async function getRequest(id: string = "GhLmJWKWNf3k74Znia5I") {
+export async function getRequest(id: string = "GhLmJWKWNf3k74Znia5I", setStatus) {
     while (true) {
         const content = await getDoc(doc(db, "Requests", id))
             .then(snapshot => snapshot.data())
             .catch(err => console.log(err))
 
         if (typeof content["data"] != "undefined") return content
+        if (typeof content["status"] != "undefined") setStatus(content["status"])
         await sleep(1000)
     }
 }
-
 
 
 

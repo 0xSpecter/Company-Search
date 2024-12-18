@@ -78,9 +78,6 @@ export default function Page() {
                         Sign Up
                     </Button>
                     <span className="w-10 h-1 bg-pri" />
-                    <Button>
-                        Sign Up with google
-                    </Button>
                 </div>
 
                 <HollowButton redirect="/user/login">

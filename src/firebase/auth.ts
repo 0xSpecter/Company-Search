@@ -21,3 +21,5 @@ export function logOut() {
         .then(res => {return res})
         .catch(error => console.log(error))
 }
+
+

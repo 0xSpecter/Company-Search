@@ -60,7 +60,7 @@ export default function Home() {
 
     return (
         <div className="flex flex-row h-screen w-screen overflow-hidden">
-            <Sidepanal progress={progress} />
+            <Sidepanal progress={progress} setProgress={setProgress} />
 
             <div className="flex flex-col items-center justify-center w-[calc(100%-80px)] h-full">
                 { progress == "start" 

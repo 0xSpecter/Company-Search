@@ -39,9 +39,9 @@ export default function Info({ point, goBack }) {
                     <span className="pl-4">
                         Tlf: {point.mobile}
                     </span>
-                    <span className="pl-4">
+                    <a className="pl-4 text-ter transition-all hover:scale-105" href={point.website}>
                         Nettside: {point.website}
-                    </span>
+                    </a>
                     <div className="flex flex-row items-center justify-center gap-5">
                         { point.social_media &&
                             Object.keys(point.social_media).map((item, i) => {

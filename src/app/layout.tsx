@@ -15,14 +15,8 @@ export default function RootLayout({children,}: Readonly<{children: React.ReactN
                     DoubleO-AI UB  Bedrift filter demo v 0.0.1
                 </span>
                 {children}
-                <div className="fixed bottom-5 right-7 flex flex-col items-center justify-center gap-2 z-50">
-                    <span className="text-center text-black/80 font-bold">
-                        Nav
-                    </span> 
-                    <span className="w-5 h-1 bg-pri" />
-
-                    <a className="text-center text-sec hover:scale-110" href="/dashboard">Dash</a>
-                    <Link className="text-center text-sec hover:scale-110" href="/">Home</Link>
+                <div className="fixed bottom-0 right-1 flex flex-col items-center justify-center gap-2 z-50">
+                    <Link className="text-center text-sec/40 hover:scale-110" href="/">Home</Link>
                 </div>
             </body>
         </html>

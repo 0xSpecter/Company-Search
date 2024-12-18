@@ -67,9 +67,6 @@ export default function Page() {
                         Login
                     </Button>
                     <span className="w-10 h-1 bg-pri" />
-                    <Button>
-                        Login with google
-                    </Button>
                 </div>
 
                 <HollowButton redirect="/user/signup">

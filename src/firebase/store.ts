@@ -1,4 +1,4 @@
-import { collection, addDoc, getDoc } from 'firebase/firestore';
+import { collection, addDoc, getDoc, doc } from 'firebase/firestore';
 // import { getDoc, getDocs, doc, collection, addDoc, setDoc, Firestore, documentId, DocumentSnapshot } from 'firebase/firestore';
 import { db } from "./fire"
 
@@ -24,15 +24,23 @@ export async function createRequest(data) {
         dat["website"] = data.nettside
     }
 
-    await addDoc(collection(db, "Requests"), dat)
+    return (await addDoc(collection(db, "Requests"), dat)).id
+        
+}
+
+function sleep(time) {
+  return new Promise((resolve) => setTimeout(resolve, time));
 }
 
 export async function getRequest(id: string = "qnCH3bsd2FCa0Blk4s3j") {
-    const content = await getDoc(doc(db, "Requests", id))
-        .then(snapshot => snapshot.data())
-        .catch(err => console.log(err))
-    
-    return content
+    while (true) {
+        const content = await getDoc(doc(db, "Requests", id))
+            .then(snapshot => snapshot.data())
+            .catch(err => console.log(err))
+
+        if (typeof content["data"] != "undefined") return content
+        await sleep(1000)
+    }
 }
 
 

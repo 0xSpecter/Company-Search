@@ -64,10 +64,10 @@ export default function Home() {
                     <>
                         <Filters filters={filters} setFilters={setFilters} />          
                         <div className="h-40 w-full pl-32">
-                            <Button onClick={() => {
-                                    //createRequest(filters)
+                            <Button onClick={async () => {
                                     setProgress("loading")
-                                    getRequest()
+                                    const id = await createRequest(filters)
+                                    getRequest(id)
                                         .then(data => setTable(data))
                                 }}
                             >

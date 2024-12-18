@@ -8,6 +8,7 @@ import Button from "@/components/button";
 import { useEffect, useState } from "react";
 import { createRequest, getRequest } from "@/firebase/store";
 import Table from "@/components/dashboard/table";
+import Info from "@/components/dashboard/info";
 
 
 
@@ -48,6 +49,14 @@ export default function Home() {
             setProgress("table")
         } 
     }, [table])
+
+    const [infopoint, setInfopoint] = useState(null)
+
+    useEffect(() => {
+        if (infopoint != null) {
+            setProgress("info")
+        }
+    }, [infopoint])
 
     return (
         <div className="flex flex-row h-screen w-screen overflow-hidden">
@@ -106,11 +115,11 @@ export default function Home() {
                 : progress == "table"
                 ? 
                     <>
-                        <Table table={table} />
+                        <Table table={table} setInfopoint={setInfopoint} />
                     </>
                 : progress == "info" &&
                     <>
-                        
+                        <Info point={infopoint} goBack={() => setProgress("table")}/>
                     </>
                 }
             </div>

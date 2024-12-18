@@ -11,7 +11,7 @@ function Title({ width = "w-[20%]", children = "" }) {
     )
 }
 
-export default function Table({ table }) {
+export default function Table({ table, setInfopoint }) {
     return (
         <div className="w-full h-full flex flex-col pl-20 pt-20 pr-20">
             <H>
@@ -66,9 +66,11 @@ export default function Table({ table }) {
                                     }
                                 }}           
                             >
-                                <span className="w-[20%] h-full flex items-center truncate text-xl pl-[3px]">
+                                <button className="w-[20%] h-full flex items-center truncate text-xl pl-[3px]"
+                                    onClick={() => setInfopoint(point)}
+                                >
                                     {point.name}
-                                </span> 
+                                </button> 
                                 { point.website ?
                                     <a className="w-[15%] h-full rounded-md bg-green-400 flex justify-center text-fg text-xl items-center"
                                         href={point.website}

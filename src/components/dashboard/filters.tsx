@@ -133,6 +133,7 @@ export default function Filters({ filters, setFilters }) {
                     </div>
                 </Filter>
             </div>
+            
         </div>
     )
 }

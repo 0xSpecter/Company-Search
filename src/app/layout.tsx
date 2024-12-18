@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -21,7 +22,7 @@ export default function RootLayout({children,}: Readonly<{children: React.ReactN
                     <span className="w-5 h-1 bg-pri" />
 
                     <a className="text-center text-sec hover:scale-110" href="/dashboard">Dash</a>
-                    <a className="text-center text-sec hover:scale-110" href="/">Home</a>
+                    <Link className="text-center text-sec hover:scale-110" href="/">Home</Link>
                 </div>
             </body>
         </html>

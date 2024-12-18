@@ -5,7 +5,8 @@ import Sidepanal from "@/components/dashboard/sidepanal";
 import H from "@/components/h";
 import Filters from "@/components/dashboard/filters";
 import Button from "@/components/button";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { createRequest } from "@/firebase/store";
 
 
 
@@ -30,12 +31,17 @@ export default function Home() {
         }
     })
 
+    useEffect(() => {
+        if (typeof window != "undefined") {
+            window.location.href = `/dashboard#${progress}`
+        }
+    }, [progress])
 
     return (
         <div className="flex flex-row h-screen w-screen overflow-hidden">
             <Sidepanal progress={progress} />
 
-            <div className="flex flex-col items-center justify-center w-full h-full">
+            <div className="flex flex-col items-center justify-center w-[calc(100%-80px)] h-full">
                 { progress == "start" 
                 ? 
                     <>
@@ -48,7 +54,11 @@ export default function Home() {
                     <>
                         <Filters filters={filters} setFilters={setFilters} />          
                         <div className="h-40 w-full pl-32">
-                            <Button>
+                            <Button onClick={() => {
+                                    createRequest(filters)
+                                    setProgress("loading")
+                                }}
+                            >
                                 Godkjenn og søk
                             </Button>
                         </div>
@@ -56,11 +66,11 @@ export default function Home() {
                 : progress == "loading"
                 ?
                     <>
-                        <div className="flex items-center justify-center gap-5">
+                        <div className="flex flex-col items-center justify-center gap-10">
                             <H>
-                                Laster Inn
+                                Laster Inn ...
                             </H>
-                            <Button onClick={() => {}}>
+                            <Button onClick={() => setProgress("filters")}>
                                 Avslutt søk tidlig
                             </Button>
                         </div>

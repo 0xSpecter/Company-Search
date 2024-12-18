@@ -7,6 +7,7 @@ import Filters from "@/components/dashboard/filters";
 import Button from "@/components/button";
 import { useEffect, useState } from "react";
 import { createRequest, getRequest } from "@/firebase/store";
+import Table from "@/components/dashboard/table";
 
 
 
@@ -90,41 +91,7 @@ export default function Home() {
                 : progress == "table"
                 ? 
                     <>
-                        <div className="w-full h-full flex flex-col pl-20 pt-20 pr-20">
-                            <H>
-                                Vi Fant {table.data.length} bedrifter!
-                            </H>
-                            <span className="ml-1 mt-4">
-                                Vi Fant {table.data.length} bedrifter som er i {table.industry}
-                            </span>
-                            <div className="w-full h-full overflow-y-scroll flex flex-col gap-1 items-center justify-start pr-5 mt-10">
-                            { table.data &&
-                                table.data.map((point, i) => {
-                                    return (
-                                        <div className="w-full h-14 p-1 border border-fg/60 flex flex-row gap-5"
-                                            key={`${i} like icecream`}
-                                        >
-                                            <span className="w-[20%] h-full truncate pt-[2px] pl-[3px]">
-                                                {point.name}
-                                            </span> 
-                                            <button className="w-[15%] h-full rounded-md bg-green-400">
-                                                ja
-                                            </button>
-                                            <div className="flex flex-row items-center justify-around w-[25%] h-full border border-fg/80 rounded-md">
-                                                map SoMe profiler
-                                            </div>
-                                            <span className="border border-fg/80 rounded-md text-center w-[20%] h-full">
-                                                {point.industry}
-                                            </span>
-                                            <span className="w-[20%] text-center h-full">
-                                                {point.employees ? point.employees : "Not accesible"}
-                                            </span>
-                                        </div>
-                                    )
-                                })
-                            }
-                            </div>
-                        </div>
+                        <Table table={table} />
                     </>
                 : progress == "element" &&
                     <>

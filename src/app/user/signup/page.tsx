@@ -3,6 +3,7 @@ import { motion } from "motion/react";
 import Input from "@/components/input";
 import Button from "@/components/button";
 import HollowButton from "@/components/hollowButton";
+import { useRouter } from "next/navigation";
 import { SignUp } from "@/firebase/auth";
 import { validate } from "email-validator";
 import { useEffect, useState } from "react";
@@ -12,6 +13,7 @@ export default function Page() {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [passwordAgain, setPasswordAgain] = useState("")
+    const router = useRouter()
 
     useEffect(() => {
         setErrors([])
@@ -28,6 +30,7 @@ export default function Page() {
 
     async function trySignUp() {
         await SignUp(email, password) 
+        router.push("/dashboard")
     }
 
     return (

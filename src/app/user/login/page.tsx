@@ -4,6 +4,7 @@ import Input from "@/components/input";
 import Button from "@/components/button";
 import HollowButton from "@/components/hollowButton";
 import Login from "@/firebase/auth";
+import { useRouter } from "next/navigation";
 import { validate } from "email-validator";
 import { useEffect, useState } from "react";
 
@@ -11,6 +12,7 @@ export default function Page() {
     const [errors, setErrors] = useState([])
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
+    const router = useRouter()
 
     useEffect(() => {
         setErrors([])
@@ -24,6 +26,7 @@ export default function Page() {
 
     async function trySignUp() {
         await Login(email, password) 
+        router.push("/dashboard")
     }
 
     return (

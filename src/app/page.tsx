@@ -13,9 +13,14 @@ export default function Home() {
                 {session.user ? `You are ${session.user["email"]}` : "Logged out"}
             </motion.h1>
             { session.status == "authenticated" ?
-                <Button onClick={() => logOut()}>
-                    Logout
-                </Button>
+                <>
+                    <Button onClick={() => logOut()}>
+                        Logout
+                    </Button>
+                    <Button redirect="/dashboard">
+                        Dashboard
+                    </Button>
+                </>
             : 
                 <> 
                     <Button redirect="/user/login">

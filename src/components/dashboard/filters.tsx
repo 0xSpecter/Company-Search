@@ -1,6 +1,5 @@
 import H from "../h"
 import Input from "../input"
-import { v4 } from "uuid"
 import { AnimatePresence, motion } from "motion/react"
 
 function Filter({ ignore, toggle, children, title = "Select Someting" }) {

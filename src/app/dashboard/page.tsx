@@ -14,7 +14,7 @@ export default function Home() {
     useSession(true, "/")
     const [progress, setProgress] = useState("start")
     const [filters, setFilters] = useState({
-        industri: "fuck",
+        industri: "",
         antall_ansatte: [0, 1000],
         SoMe: {
             instagram: false,
@@ -71,7 +71,7 @@ export default function Home() {
                                         .then(data => setTable(data))
                                 }}
                             >
-                                Godkjenn og søk
+                                <img src="/check.svg" alt="" className="w-6 h-6 mr-3"/> Godkjenn og søk
                             </Button>
                         </div>
                     </>

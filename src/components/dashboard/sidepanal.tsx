@@ -29,7 +29,8 @@ function Progress_point({ selected, src = "/vercel.svg" }) {
 
 export default function Sidepanal({ progress }) {
     return (
-        <div className="flex flex-col items-center justify-center gap-20 w-20 h-full bg-pri">
+        <div className="relative flex flex-col items-center justify-center gap-20 w-20 h-full bg-pri">
+            <img src="/do.png" alt="do" className="w-16 h-16 absolute top-2 right-0 left-0 m-auto invert" /> 
             <Progress_point selected={progress == "start"}/>
             <Progress_point selected={progress == "filters"}/>
             <Progress_point selected={progress == "loading"}/>

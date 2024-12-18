@@ -1,6 +1,7 @@
 import H from "../h"
 import Input from "../input"
-import { motion } from "motion/react"
+import { v4 } from "uuid"
+import { AnimatePresence, motion } from "motion/react"
 
 function Filter({ ignore, toggle, children, title = "Select Someting" }) {
 
@@ -12,20 +13,24 @@ function Filter({ ignore, toggle, children, title = "Select Someting" }) {
                 background: "#eee"
             }}
         >
-            <h2 className="text-sec text-2xl">
+            <h2 className="text-sec font-medium text-2xl">
                 {title}
             </h2>
             <>
                 {children}
             </>
-            <motion.button className="bg-red-400 rounded-xl text-xl px-2 py-1"
+            <motion.button className="bg-red-400 rounded-xl text-xl px-2 py-1 flex flex-row items-center"
                 onClick={toggle}
+                whileHover={{
+                    scale: 1.1
+                }}
                 animate={ignore ? {
-                    background: "#10ffaa"
+                    background: "#10bbdd"
                 } : {
                     background: "#f66"
                 }}
             >
+                <img src={ignore ? "/check.svg" : "/cross.svg"} alt="O" className="w-4 h-4 mr-2" />
                 {ignore ? "Bruk" : "Ignorer"}
             </motion.button>
         </motion.div>
@@ -34,22 +39,63 @@ function Filter({ ignore, toggle, children, title = "Select Someting" }) {
 
 function Choice({ selected, img_src = "/vercel.svg", children = "", toggle = () => {} }) {
     return (
-        <motion.button className="h-14 w-full rounded-xl border border-sec/30 flex flex-row items-center justify-between p-2"
+        <motion.button className="h-14 w-full rounded-2xl border border-sec/30 flex flex-row items-center justify-between p-2"
             onClick={toggle} 
+            whileHover={{
+                scale: 1.03
+            }}
+            whileFocus={{
+                scale: 0.97
+            }}
             animate={selected ? {
-                background: "#DAB8FF"
+                background: "#7B34C8",
+                borderColor: "#7B34C8",
             } : {
-                background: "#DAB8FF00"
+                background: "#7B34C800",
+                borderColor: "#7B34C850",
             }}
         >
-            <img src={img_src} alt="logo" className="h-full w-fit mr-5"/> 
-            <span className="w-full text-start text-xl text-fg">
+            <motion.img src={img_src} alt="logo" className="h-full w-fit mr-5 invert"
+                animate={ selected ? {
+                    filter: "invert(100%)"
+                } : {
+                    filter: "invert(0%)"
+                }}
+            /> 
+            <motion.span className="w-full text-start text-xl text-fg"
+                animate={ selected ? {
+                    filter: "invert(100%)"
+                } : {
+                    filter: "invert(0%)"
+                }}
+            >
                 {children}
-            </span>
-            <div className="w-20 h-full">
-                { selected &&
-                    <img src="/vercel.svg" alt="logo" className="h-full w-fit"/> 
-                }
+            </motion.span>
+            <div className="w-20 h-full" >
+                <AnimatePresence>
+                    { selected &&
+                        <motion.img src="/check.svg" alt="logo" className="h-full w-fit invert"
+                            initial={{
+                                opacity: 0,
+                                x: 10,
+                                y: -10,
+                                rotate: 30,
+                            }}
+                            animate={{
+                                x: 0,
+                                y: 0,
+                                opacity: 1,
+                                rotate: 0,
+                            }}
+                            exit={{
+                                x: 10,
+                                y: 10,
+                                opacity: 0,
+                                rotate: 30,
+                            }}
+                        /> 
+                    }
+                </AnimatePresence>
             </div>
         </motion.button>
     )
@@ -76,7 +122,9 @@ export default function Filters({ filters, setFilters }) {
             </H>
             <div className="mt-5 w-full h-fit overflow-scrol flex flex-col lg:flex-row items-center justify-start gap-5">
                 <Filter title="Industri" ignore={filters.ignore["industri"]} toggle={() => toggle("ignore", "industri")}>
-                    <Input value={filters.industri} setter={(v : string) => setFilters((pv : object) => {return{...pv, industri: v}})} />
+                    <Input value={filters.industri} setter={(v : string) => setFilters((pv : object) => {return{...pv, industri: v}})}>
+                        Industri
+                    </Input>
                 </Filter>
 
                 <Filter title="Antall Ansatte" ignore={filters.ignore["antall_ansatte"]} toggle={() => toggle("ignore", "antall_ansatte")}>
@@ -89,16 +137,16 @@ export default function Filters({ filters, setFilters }) {
 
                 <Filter title="SoMe Profiler" ignore={filters.ignore["SoMe"]} toggle={() => toggle("ignore", "SoMe")}>
                     <div className="flex flex-col items-center justify-center p-2 w-full h-full gap-3">
-                        <Choice selected={filters.SoMe["instagram"]} toggle={() => toggle("SoMe", "instagram")}>
+                        <Choice img_src="/instagram.svg" selected={filters.SoMe["instagram"]} toggle={() => toggle("SoMe", "instagram")}>
                             Instagram
                         </Choice>
-                        <Choice selected={filters.SoMe["facebook"]} toggle={() => toggle("SoMe", "facebook")}>
+                        <Choice img_src="/facebook.svg" selected={filters.SoMe["facebook"]} toggle={() => toggle("SoMe", "facebook")}>
                             Facebook
                         </Choice>
-                        <Choice selected={filters.SoMe["linkedin"]} toggle={() => toggle("SoMe", "linkedin")}>
+                        <Choice img_src="/linkedin.svg" selected={filters.SoMe["linkedin"]} toggle={() => toggle("SoMe", "linkedin")}>
                             Linkedin
                         </Choice>
-                        <Choice selected={filters.SoMe["tiktok"]} toggle={() => toggle("SoMe", "tiktok")}>
+                        <Choice img_src="/tiktok.svg" selected={filters.SoMe["tiktok"]} toggle={() => toggle("SoMe", "tiktok")}>
                             Tiktok
                         </Choice>
                     </div>
@@ -106,27 +154,37 @@ export default function Filters({ filters, setFilters }) {
 
                 <Filter title="Har Nettside" ignore={filters.ignore["nettside"]} toggle={() => toggle("ignore", "nettside")}>
                     <div className="w-full flex items-center justify-center gap-5 flex-col p-10 text-xl">
-                        <motion.button className="border border-sec w-full text-center h-14 rounded-xl"
+                        <motion.button className="border w-full text-center h-14 rounded-2xl"
                             onClick={() => setFilters(pv => {return {...pv, nettside: true}})}
+                            whileHover={{
+                                scale: 1.04
+                            }}
                             animate={ filters.nettside ? {
                                 background: "#7B34C8",
-                                color: "#fff"
+                                color: "#fff",
+                                borderColor: "#7B34C8",
                             } : {
-                                    background: "#7B34C800",
-                                    color: "#111"
-                                }}
+                                background: "#7B34C800",
+                                color: "#111",
+                                borderColor: "#7B34C870",
+                            }}
                         >
                             Ja
                         </motion.button>
-                        <motion.button className="border border-sec w-full text-center h-14 rounded-xl"
+                        <motion.button className="border w-full text-center h-14 rounded-2xl"
                             onClick={() => setFilters(pv => {return {...pv, nettside: false}})}
+                            whileHover={{
+                                scale: 1.04
+                            }}
                             animate={ !filters.nettside ? {
                                 background: "#7B34C8",
-                                color: "#fff"
+                                color: "#fff",
+                                borderColor: "#7B34C8",
                             } : {
-                                    background: "#7B34C800",
-                                    color: "#111"
-                                }}
+                                background: "#7B34C800",
+                                color: "#111",
+                                borderColor: "#7B34C870",
+                            }}
                         >
                             Nei
                         </motion.button>

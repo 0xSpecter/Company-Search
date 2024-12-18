@@ -25,14 +25,13 @@ export async function createRequest(data) {
     }
 
     return (await addDoc(collection(db, "Requests"), dat)).id
-        
 }
 
 function sleep(time) {
   return new Promise((resolve) => setTimeout(resolve, time));
 }
 
-export async function getRequest(id: string = "qnCH3bsd2FCa0Blk4s3j") {
+export async function getRequest(id: string = "GhLmJWKWNf3k74Znia5I") {
     while (true) {
         const content = await getDoc(doc(db, "Requests", id))
             .then(snapshot => snapshot.data())

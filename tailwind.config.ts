@@ -13,7 +13,8 @@ export default {
                 bg: "#eee",
                 fg: "#111",
                 pri: "#DAB8FF",
-                sec: "#280053"
+                sec: "#280053",
+                ter: "#7B34C8"
             },
         },
     },

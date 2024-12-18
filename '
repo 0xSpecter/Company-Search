@@ -47,7 +47,7 @@ export default function Home() {
                 ?
                     <>
                         <Filters filters={filters} setFilters={setFilters} />          
-                        <div className="h-40 w-full pl-32">
+                        <div>
                             <Button>
                                 Godkjenn og søk
                             </Button>
